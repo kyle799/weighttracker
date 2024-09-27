@@ -228,11 +228,28 @@ function toggleDarkMode() {
     }
 }
 
-// Apply dark mode if previously selected
+// Apply dark mode based on user preference or system setting
 window.onload = () => {
-    if (localStorage.getItem('darkMode') === 'enabled') {
+    const darkModePreference = localStorage.getItem('darkMode');
+
+    if (darkModePreference === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true;
+    } else if (darkModePreference === 'disabled') {
+        document.body.classList.remove('dark-mode');
+        darkModeToggle.checked = false;
+    } else {
+        // No preference stored, check system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // System prefers dark mode
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        } else {
+            // System prefers light mode
+            document.body.classList.remove('dark-mode');
+            darkModeToggle.checked = false;
+        }
     }
+
     fetchData();
 };
