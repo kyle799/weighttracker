@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weekly Time Tracker</title>
+    <style>
+        /* Existing styles */
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 10px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+        tfoot td {
+            font-weight: bold;
+        }
+        /* Style for buttons */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        /* Style for the week title */
+        #week-title {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        /* Progress bar styles */
+        .progress-container {
+            width: 60%;
+            margin: 20px auto;
+            background-color: #f3f3f3;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #4caf50;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Week Title -->
+    <h1 id="week-title">Week of [Date]</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Minutes</th>
+                <th>Agree</th>
+                <th>Dispute</th>
+            </tr>
+        </thead>
+        <tbody id="schedule-body">
+            <!-- Rows will be populated here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total Minutes:</td>
+                <td id="total-minutes">0</td>
+                <td colspan="2" id="goal-cell">0/210 minute goal</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="button-container">
+        <button id="grab-data-button">Grab Data</button>
+        <button id="submit-data-button" disabled>Submit Data</button>
+    </div>
+
+    <!-- Include the external JavaScript file -->
+    <script src="app.js"></script>
+</body>
+</html>
