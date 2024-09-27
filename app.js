@@ -211,5 +211,28 @@ window.addEventListener('beforeunload', function (e) {
 document.getElementById('grab-data-button').addEventListener('click', fetchData);
 document.getElementById('submit-data-button').addEventListener('click', saveData);
 
-// Fetch data and populate the table when the page loads
-window.onload = fetchData;
+// Dark mode toggle functionality
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+darkModeToggle.addEventListener('change', toggleDarkMode);
+
+function toggleDarkMode() {
+    const body = document.body;
+
+    if (darkModeToggle.checked) {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+    }
+}
+
+// Apply dark mode if previously selected
+window.onload = () => {
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+    }
+    fetchData();
+};

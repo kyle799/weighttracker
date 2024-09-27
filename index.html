@@ -4,20 +4,46 @@
     <meta charset="UTF-8">
     <title>Weekly Time Tracker</title>
     <style>
-        /* Existing styles */
+        /* Variables for light and dark modes */
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --table-border-color: #aaa;
+            --progress-bar-color: #4caf50;
+            --progress-bar-background: #f3f3f3;
+            --input-background: #ffffff;
+            --input-text-color: #000000;
+        }
+        body.dark-mode {
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --table-border-color: #444;
+            --progress-bar-color: #76ff03;
+            --progress-bar-background: #333;
+            --input-background: #1e1e1e;
+            --input-text-color: #ffffff;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
         table {
             width: 60%;
             margin: 20px auto;
             border-collapse: collapse;
-            font-family: Arial, sans-serif;
         }
         th, td {
-            border: 1px solid #aaa;
+            border: 1px solid var(--table-border-color);
             padding: 10px;
             text-align: center;
         }
         input[type="number"] {
             width: 80px;
+            background-color: var(--input-background);
+            color: var(--input-text-color);
+            border: 1px solid var(--table-border-color);
         }
         input[type="checkbox"] {
             transform: scale(1.2);
@@ -34,6 +60,14 @@
             margin: 0 10px;
             padding: 10px 20px;
             font-size: 16px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            border: 1px solid var(--table-border-color);
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: var(--table-border-color);
+            color: var(--background-color);
         }
         /* Style for the week title */
         #week-title {
@@ -45,20 +79,85 @@
         .progress-container {
             width: 60%;
             margin: 20px auto;
-            background-color: #f3f3f3;
-            border: 1px solid #aaa;
+            background-color: var(--progress-bar-background);
+            border: 1px solid var(--table-border-color);
             border-radius: 5px;
             overflow: hidden;
         }
         .progress-bar {
             height: 20px;
-            background-color: #4caf50;
+            background-color: var(--progress-bar-color);
             width: 0%;
             transition: width 0.3s;
+        }
+        /* Dark mode toggle slider */
+        .dark-mode-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 34px;
+            margin-left: 10px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0;
+            right: 0; bottom: 0;
+            background-color: var(--table-border-color);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: '';
+            height: 26px; width: 26px;
+            left: 4px; bottom: 4px;
+            background-color: var(--background-color);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--table-border-color);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        /* Sun and Moon Icons */
+        .slider:after {
+            content: '☀';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            font-size: 20px;
+            color: var(--text-color);
+        }
+        input:checked + .slider:after {
+            content: '🌙';
+            left: 34px;
+            color: var(--text-color);
         }
     </style>
 </head>
 <body>
+
+    <!-- Dark Mode Toggle Slider -->
+    <div class="dark-mode-toggle">
+        <label class="toggle-switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
 
     <!-- Week Title -->
     <h1 id="week-title">Week of [Date]</h1>
